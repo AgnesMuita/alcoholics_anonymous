@@ -30,9 +30,10 @@ fake_users_db = {
 def fake_hash_password(password:str):
   return "fakehashed" + password
 
-@router.post("/token")
+@router.post("/")
 async def login(form_data:OAuth2PasswordRequestForm=Depends()):
   user_dict=fake_users_db.get(form_data.username)
+  print(user_dict)
   if not user_dict:
     raise HTTPException(status_code=400,detail="Incorrect username or password")
   user = UserInDB(**user_dict)
@@ -41,6 +42,6 @@ async def login(form_data:OAuth2PasswordRequestForm=Depends()):
     raise HTTPException(status_code=400, detail="Incorrect username or password")
   return {"access_token":user.username, "token_type":"bearer"}
 
-@router.get('/', response_model=List[User])
+@router.get('/getusers', response_model=List[User])
 async def index():
   return fake_users_db

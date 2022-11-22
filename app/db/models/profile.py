@@ -3,8 +3,7 @@ from ..db import Base
 from sqlalchemy.orm import relationship
 from pydantic import BaseModel
 from typing import Union
-from db.models.common import TimestampModel, UUIDModel
-
+from db.models.common import UUIDModel
 
 
 
