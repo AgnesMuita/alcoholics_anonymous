@@ -5,16 +5,20 @@ from uuid import UUID
 from pydantic import BaseModel
 
 
-class ExampleCreateSchema(BaseModel):
+class UserCreateSchema(BaseModel):
     id: Optional[UUID] = None
-    name: str
-    active: bool
+    username: str
+    profile_picture: str
+    disabled: bool
 
     class Config:
         orm_mode = True
 
+class UserInDBSchema(UserCreateSchema):
+    hashed_password:str
 
-class ExampleSchema(ExampleCreateSchema):
+
+class UserSchema(UserCreateSchema):
     created_at: Optional[datetime]
     updated_at: Optional[datetime]
 

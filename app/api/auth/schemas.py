@@ -5,17 +5,13 @@ from uuid import UUID
 from pydantic import BaseModel
 
 
-class ExampleCreateSchema(BaseModel):
+class LoginSchema(BaseModel):
     id: Optional[UUID] = None
-    name: str
-    active: bool
+    username: str
+    profile_picture: str
 
     class Config:
         orm_mode = True
 
-
-class ExampleSchema(ExampleCreateSchema):
-    created_at: Optional[datetime]
-    updated_at: Optional[datetime]
 
 
