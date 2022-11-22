@@ -1,4 +1,4 @@
-# FastAPI Starter Project
+# Alcoholics Anonymous
 
 Project includes:
 
