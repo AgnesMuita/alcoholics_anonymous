@@ -4,9 +4,11 @@ from typing import List
 from hashing import Hash
 from fastapi.middleware.cors import CORSMiddleware
 
+
 from db.models.auth import UserInDB, User
 from oauth import get_current_user
 from jwttoken import create_access_token
+from db.db import database
 
 
 
@@ -31,7 +33,7 @@ def read_root(current_user:User = Depends(get_current_user)):
 
 @router.post("/")
 async def login(request:OAuth2PasswordRequestForm=Depends()):
-  user_dict=db["users"].find_one({"username":request.username})
+  user_dict=database["users"].find_one({"username":request.username})
   if not user_dict:
     raise HTTPException(status_code=400,detail="Incorrect username")
   if not Hash.verify(user_dict["password"],request.password):
@@ -46,7 +48,7 @@ def create_user(request:User):
   hashed_pass=Hash.bcrypt(request.hashed_password)
   user_object=dict(request)
   user_object["hashed_password"] = hashed_pass
-  user_id=db["users"].insert(user_object)
+  user_id=database["users"].insert(user_object)
   return {"res":"created"}
 
 
