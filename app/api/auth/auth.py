@@ -1,49 +1,77 @@
-from fastapi import APIRouter, Depends, HTTPException,status
+from fastapi import APIRouter, Depends, HTTPException,status, FastAPI
 from fastapi.security import OAuth2PasswordRequestForm
-from db.models.profile import UserInDB, User
 from typing import List
+from hashing import Hash
+from fastapi.middleware.cors import CORSMiddleware
 
+from db.models.auth import UserInDB, User
+from oauth import get_current_user
+from jwttoken import create_access_token
 
 
 
 router = APIRouter()
+app=FastAPI()
 
+origins = [
+    "http://localhost:3000",
+    "http://localhost:8080",
+]
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
-fake_users_db = {
-    "johndoe": {
-        "username": "johndoe",
-        "full_name": "John Doe",
-        "email": "johndoe@example.com",
-        "hashed_password": "fakehashedsecret",
-        "disabled": False,
-    },
-    "alice": {
-        "username": "alice",
-        "full_name": "Alice Wonderson",
-        "email": "alice@example.com",
-        "hashed_password": "fakehashedsecret2",
-        "disabled": True,
-    },
-}
-
-
-def fake_hash_password(password:str):
-  return "fakehashed" + password
+@app.get("/")
+def read_root(current_user:User = Depends(get_current_user)):
+	return {"data":"Hello World"}
 
 @router.post("/")
-async def login(form_data:OAuth2PasswordRequestForm=Depends()):
-  user_dict=fake_users_db.get(form_data.username)
-  print(user_dict)
+async def login(request:OAuth2PasswordRequestForm=Depends()):
+  user_dict=db["users"].find_one({"username":request.username})
   if not user_dict:
-    raise HTTPException(status_code=400,detail="Incorrect username or password")
-  user = UserInDB(**user_dict)
-  hashed_password=fake_hash_password(form_data.password)
-  if not hashed_password == user.hashed_password:
-    raise HTTPException(status_code=400, detail="Incorrect username or password")
-  return {"access_token":user.username, "token_type":"bearer"}
+    raise HTTPException(status_code=400,detail="Incorrect username")
+  if not Hash.verify(user_dict["password"],request.password):
+    raise HTTPException(status_code=400, detail="Incorrect password")
+  access_token = create_access_token(data={"sub":user_dict["username"]})
+  return {"access_token":access_token, "token_type":"bearer"}
 
-@router.get('/getusers', response_model=List[User])
-async def index():
-  return fake_users_db
+
+@router.post("/register")
+def create_user(request:User):
+  #hash the inputted password
+  hashed_pass=Hash.bcrypt(request.hashed_password)
+  user_object=dict(request)
+  user_object["hashed_password"] = hashed_pass
+  user_id=db["users"].insert(user_object)
+  return {"res":"created"}
+
+
+
+
+# fake_users_db = {
+#     "johndoe": {
+#         "username": "johndoe",
+#         "full_name": "John Doe",
+#         "email": "johndoe@example.com",
+#         "hashed_password": "fakehashedsecret",
+#         "disabled": False,
+#     },
+#     "alice": {
+#         "username": "alice",
+#         "full_name": "Alice Wonderson",
+#         "email": "alice@example.com",
+#         "hashed_password": "fakehashedsecret2",
+#         "disabled": True,
+#     },
+# }
+
+
+# def fake_hash_password(password:str):
+#   return "fakehashed" + password
+
 
 

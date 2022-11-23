@@ -8,3 +8,7 @@ alembic==1.8.1
 sqlalchemy
 python-multipart
 pydantic
+passlib
+cryptography
+openpyxl
+python-jose
