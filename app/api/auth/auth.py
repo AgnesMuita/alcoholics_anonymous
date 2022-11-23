@@ -45,3 +45,5 @@ async def login(form_data:OAuth2PasswordRequestForm=Depends()):
 @router.get('/getusers', response_model=List[User])
 async def index():
   return fake_users_db
+
+
