@@ -12,3 +12,4 @@ passlib
 cryptography
 openpyxl
 python-jose
+psycopg2

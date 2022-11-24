@@ -23,7 +23,7 @@ class User(UUIDModel, BaseModel, table=True):
     hashed_password: str
     disabled: Union[bool, None] = None
     username: str
-    id:UUIDModel
+    # id: UUIDModel, primary_key=True
 
     def __repr__(self):
         return f"<User (id: {self.id})>"

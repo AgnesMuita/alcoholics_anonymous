@@ -1,6 +1,6 @@
 from api.router import api_router
 from fastapi import FastAPI
-from fastapi.responses import UJSONResponse
+from fastapi.responses import JSONResponse
 
 
 def get_app() -> FastAPI:
@@ -18,7 +18,7 @@ def get_app() -> FastAPI:
         docs_url="/api/docs/",
         redoc_url="/api/redoc/",
         openapi_url="/api/openapi.json",
-        default_response_class=UJSONResponse,
+        default_response_class=JSONResponse,
     )
 
     app.include_router(router=api_router, prefix="/api")

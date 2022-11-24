@@ -39,7 +39,7 @@ AATable = sqlalchemy.Table(
 engine = sqlalchemy.create_engine(
     SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}
 )
-metadata.create_all(engine)
+# metadata.create_all(engine)
 
 Base = declarative_base()
 database = databases.Database(SQLALCHEMY_DATABASE_URL)
