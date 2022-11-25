@@ -17,7 +17,7 @@ jobs:
         image: postgres:13.6
         env:
           POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
+          POSTGRES_PASSWORD: Wamwitha2020
           POSTGRES_DB: db_test
         ports:
         - 5432:5432
@@ -43,6 +43,6 @@ jobs:
         DB_HOST: localhost
         DB_PORT: 5432
         DB_USER: postgres
-        DB_PASS: postgres
+        DB_PASS: Wamwitha2020
         DB_BASE: db_test
       run: cd app && pytest .

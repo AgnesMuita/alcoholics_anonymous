@@ -4,7 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 
 from api.auth.hashing import Hash
-from db.models.auth import UserInDB, User
+from db.models.auth import User
 from api.auth.oauth import get_current_user
 from api.auth.jwttoken import create_access_token
 from db.db import database

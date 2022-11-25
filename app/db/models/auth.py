@@ -1,41 +1,39 @@
 
-from ..db import Base
-from sqlalchemy.orm import relationship
-from pydantic import BaseModel
-from typing import Union, Optional
+from sqlalchemy import Integer, String, Boolean, Column
+from pydantic import BaseModel as PydanticBaseModel
+
 from db.models.common import TimestampModel, UUIDModel
+from db.db import Base
 
 
-class LoginUser(UUIDModel, table=True):
-    __tablename__ = "loginusers"
+class BaseModel(PydanticBaseModel):
+    class Config:
+        arbitrary_types_allowed = True
 
-    username: str
-    hashed_password:str
-
-    def __repr__(self):
-        return f"<User (id: {self.id})>"
-
-class User(UUIDModel, BaseModel, table=True):
+class User(BaseModel):
     __tablename__ = "users"
-
-    email: Union[str, None] = None
-    full_name: Union[str, None] = None
-    hashed_password: str
-    disabled: Union[bool, None] = None
-    username: str
-    # id: UUIDModel, primary_key=True
+    id = Column(Integer, primary_key=True)
+    email = Column(String, nullable=False)
+    full_name =Column(String, nullable=False)
+    username = Column(String, nullable=False)
+    hashed_password = Column(String, nullable=False)
+    disabled = Column(Boolean, nullable=True)
 
     def __repr__(self):
         return f"<User (id: {self.id})>"
-
-class UserInDB(User, table=True):
-    hashed_passwords: str
 
 class Token(BaseModel):
-    access_token:str    
-    token_type:str
+    __tablename__ = "token"
+    id = Column(Integer, primary_key=True)
+    access_token = Column(String, nullable=False)
+    token_type = Column(String, nullable=False)
 
 class TokenData(BaseModel):
-    username:Optional[str]=None
+    __tablename__ = "token data"
+    id = Column(Integer, primary_key=True)
+    username = Column(String, nullable=True)
+
+
+
 
 
