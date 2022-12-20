@@ -1,5 +1,6 @@
 from pathlib import Path
 from sys import modules
+import secrets
 
 from pydantic import BaseSettings
 
@@ -24,6 +25,14 @@ class Settings(BaseSettings):
     DB_PASS: str = "Wamwitha2020"
     DB_BASE: str = "postgres"
     DB_ECHO: bool = False
+
+    SECRET_KEY: str = secrets.token_urlsafe(32)
+    MESSAGE_COLLECTION = "messages"
+    ROOM_COLLECTION = "rooms"
+    API_V1_STR: str = "/api/v1"
+    PROJECT_NAME: str = "AA Chat"
+
+
 
     @property
     def BASE_URL(self) -> str:

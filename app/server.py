@@ -2,6 +2,7 @@ import uvicorn
 from core.settings import settings
 
 
+
 def main() -> None:
     """Entrypoint of the application."""
     uvicorn.run(
@@ -16,3 +17,5 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
+
