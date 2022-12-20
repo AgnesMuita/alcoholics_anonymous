@@ -8,8 +8,7 @@ Project includes:
 ##
 
 
-
-## Using docker
+## Backend 
 
 Setup env variables in `app/core/.env`
 
