@@ -11,7 +11,7 @@ Project includes:
 
 ## Using docker
 
-Setup env variables in `app/core/.env` using `app/core/.env-example`
+Setup env variables in `app/core/.env`
 
 #### Install and run
 
