@@ -29,7 +29,7 @@ class Settings(BaseSettings):
     SECRET_KEY: str = secrets.token_urlsafe(32)
     MESSAGE_COLLECTION = "messages"
     ROOM_COLLECTION = "rooms"
-    API_V1_STR: str = "/api/v1"
+    API_V1_STR: str = "/v1"
     PROJECT_NAME: str = "AA Chat"
 
 
