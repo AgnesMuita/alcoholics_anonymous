@@ -25,6 +25,8 @@ api_router.include_router(members.router, prefix=settings.API_V1_STR, tags=["mem
 api_router.include_router(sync.router, prefix=settings.API_V1_STR, tags=["sync"])  # include urls from sync.py
 
 
-app.mount("/static", StaticFiles(directory="static"), name="static")
-
-templates = Jinja2Templates(directory="../../templates")
+app.mount(
+    "/",
+    StaticFiles(directory="../frontend/dist", html=True, check_dir=False),
+    name="static",
+)
