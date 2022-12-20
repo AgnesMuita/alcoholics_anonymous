@@ -46,47 +46,6 @@ Run tests
 docker-compose exec web pytest .
 ```
 
-## Without docker
-
-#### Install
-
-```bash
-cd app/
-pip install -r requirements/development.txt
-```
-
-Setup env variables in `app/core/.env`.
-
-#### Run
-
-```bash
-cd app/
-python app/server.py
-```
-
-Go to: http://localhost:8000/api/docs/
-
-#### Migrations
-
-Create migrations
-
-```bash
-alembic revision --autogenerate -m "Example model"
-```
-
-Apply migrations
-
-```bash
-alembic upgrade head
-```
-
-#### Tests
-
-Run tests
-
-```bash
-pytest .
-```
 
 ## Environment Variables
 
