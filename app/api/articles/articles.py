@@ -59,16 +59,4 @@ def read_items(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
 
 
 
-# router = APIRouter()
-# @router.post("/")
-# def postInformation(info : Book):
-#     req_info = info.json()
-#     return {
-#         "status" : "SUCCESS",
-#         "data" : req_info
-#     }
-# @router.get("/")
-# def getInformation():
-#     return {"key":"heey"}
-
 

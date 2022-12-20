@@ -4,10 +4,10 @@ from fastapi.middleware.cors import CORSMiddleware
 
 
 from api.auth.hashing import Hash
-from db.models.auth import User
+from api.auth.schemas import UserSchema
 from api.auth.oauth import get_current_user
 from api.auth.jwttoken import create_access_token
-from db.db import database
+from app.api.books.db import database
 
 
 
@@ -27,7 +27,7 @@ app.add_middleware(
 )
 
 @app.get("/")
-def read_root(current_user:User = Depends(get_current_user)):
+def read_root(current_user:UserSchema = Depends(get_current_user)):
 	return {"data":"Hello World"}
 
 @router.post("/")
@@ -42,7 +42,7 @@ async def login(request:OAuth2PasswordRequestForm=Depends()):
 
 
 @router.post("/register")
-def create_user(request:User):
+def create_user(request:UserSchema):
   #hash the inputted password
   hashed_pass=Hash.bcrypt(request.hashed_password)
   user_object=dict(request)
@@ -52,27 +52,6 @@ def create_user(request:User):
 
 
 
-
-# fake_users_db = {
-#     "johndoe": {
-#         "username": "johndoe",
-#         "full_name": "John Doe",
-#         "email": "johndoe@example.com",
-#         "hashed_password": "fakehashedsecret",
-#         "disabled": False,
-#     },
-#     "alice": {
-#         "username": "alice",
-#         "full_name": "Alice Wonderson",
-#         "email": "alice@example.com",
-#         "hashed_password": "fakehashedsecret2",
-#         "disabled": True,
-#     },
-# }
-
-
-# def fake_hash_password(password:str):
-#   return "fakehashed" + password
 
 
 
