@@ -1,5 +1,7 @@
 # Alcoholics Anonymous
 
+Alcoholics Anonymous is a chat application built for recovering addicts to join a community and talk about their experiences. Built with FastAPI, React and PostgreSQL
+
 Project includes:
 
 -   `fastapi`
