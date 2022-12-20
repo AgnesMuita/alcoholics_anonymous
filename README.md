@@ -12,8 +12,6 @@ Project includes:
 
 ## Backend 
 
-Setup env variables in `app/core/.env`
-
 #### Install and run
 
 ```bash
