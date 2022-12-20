@@ -3,14 +3,11 @@
 Project includes:
 
 -   `fastapi`
--   `sqlmodel`
--   `alembic`
+-   `react`
 
 ##
 
-## Models
 
-Check db/models and migrations, there is one example.
 
 ## Using docker
 
